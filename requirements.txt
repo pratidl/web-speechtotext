@@ -1,9 +1,0 @@
-flask
-edge-tts
-SpeechRecognition
-pydub
-numpy
-librosa
-scikit-learn
-joblib
-soundfile
