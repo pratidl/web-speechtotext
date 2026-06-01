@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Web</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=30">
+</head>
+<body class="landing-page">
+
+    <img
+        src="{{ url_for('static', filename='img/background.png') }}?v=30"
+        alt="Background"
+        class="background-img"
+    >
+
+    <header class="landing-header">
+        <a href="/" class="brand">
+            <span class="brand-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+
+            <span class="brand-text">
+                speech <b>web</b>
+            </span>
+        </a>
+    </header>
+
+    <main class="landing-main">
+        <section class="hero">
+            <h1>
+                Speech Processing Web
+                <span class="title-line"></span>
+            </h1>
+
+            <p>Pilih fitur yang ingin digunakan</p>
+
+            <div class="feature-wrapper">
+                <a href="/speech-to-text" class="feature-card">
+                    <img
+                        src="{{ url_for('static', filename='img/speak.png') }}?v=30"
+                        alt="Speech to Text"
+                        class="feature-img speak-img"
+                    >
+
+                    <span class="feature-btn">Speech to text</span>
+                </a>
+
+                <a href="/text-to-speech" class="feature-card">
+                    <img
+                        src="{{ url_for('static', filename='img/mic.png') }}?v=30"
+                        alt="Text to Speech"
+                        class="feature-img mic-img"
+                    >
+
+                    <span class="feature-btn">Text to speech</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
