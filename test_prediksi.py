@@ -25,11 +25,6 @@ except Exception as e:
 
 # =========================================================
 # EKSTRAKSI FITUR REALTIME
-# FIX: Sekarang menggunakan pipeline yang SAMA dengan training
-#      - trim silence
-#      - padding jika terlalu pendek
-#      - normalisasi
-#      - MFCC + Delta (52 fitur, bukan 26)
 # =========================================================
 def extract_features_from_buffer(audio_data, sr=16000, n_mfcc=13, target_duration=1.5):
 
@@ -43,7 +38,7 @@ def extract_features_from_buffer(audio_data, sr=16000, n_mfcc=13, target_duratio
         )
 
         # =====================================================
-        # PADDING jika terlalu pendek
+        # PADDING
         # =====================================================
         target_samples = int(target_duration * sr)
         if len(audio_trimmed) < target_samples:
@@ -62,7 +57,7 @@ def extract_features_from_buffer(audio_data, sr=16000, n_mfcc=13, target_duratio
             audio_fixed = audio_fixed / np.max(np.abs(audio_fixed))
 
         # =====================================================
-        # FIX: MFCC + Delta (konsisten dengan training)
+        # MFCC + Delta
         # =====================================================
         mfccs  = librosa.feature.mfcc(y=audio_fixed, sr=sr, n_mfcc=n_mfcc)
         delta  = librosa.feature.delta(mfccs)
@@ -83,8 +78,8 @@ def extract_features_from_buffer(audio_data, sr=16000, n_mfcc=13, target_duratio
 
 # =========================================================
 # REKAM & PREDIKSI
-# FIX: durasi rekam dikurangi ke 4.0 detik
-#      (3 detik rekam + 1 detik buffer = cukup untuk 1.5 detik speech)
+# Durasi rekam dikurangi ke 4.0 detik
+# (3 detik rekam + 1 detik buffer = cukup untuk 1.5 detik speech)
 # =========================================================
 def rekam_dan_prediksi(durasi=4.0, sr=16000):
 
@@ -118,7 +113,7 @@ def rekam_dan_prediksi(durasi=4.0, sr=16000):
     audio_data = audio_recorded.flatten()
 
     # =====================================================
-    # CEK APAKAH ADA SUARA (energy check)
+    # Energy check
     # FIX: tambah validasi agar tidak prediksi saat sunyi
     # =====================================================
     if np.max(np.abs(audio_data)) < 0.01:
@@ -148,7 +143,7 @@ def rekam_dan_prediksi(durasi=4.0, sr=16000):
         confidence   = np.max(probabilitas) * 100
 
         # =================================================
-        # HASIL + semua probabilitas (untuk debug)
+        # DEBUG
         # =================================================
         print("=" * 60)
         print("HASIL PREDIKSI")
